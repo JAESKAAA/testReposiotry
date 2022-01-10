@@ -5,6 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.el.CompositeELResolver;
 import java.io.File;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -84,4 +85,33 @@ public class StreamMiddleOperate {
                 .forEach(System.out::println);
     }
 
+    @Test
+    public void flatMapTest(){
+        //map으로 배열을 스트림화 할때 Stream<Stream<String>> 과 같이 스트림 안에 스트림화 되는 경우가 있음
+        //이때 flatMap을 사용해주면 Stream<String> 형태로 적절히 변환 할 수 있음
+
+        Stream<String[]> strArrStrm = Stream.of(new String[] {"abc","def","jkl"}, new String[] {"ABC","DEF","JKL"});
+
+        //map사용시
+        //Stream<Stream<String>> streamStream = strArrStrm.map(Arrays::stream);
+
+        //flatMap사용시
+        Stream<String> strStm = strArrStrm.flatMap(Arrays::stream);
+
+        strStm.map(String::toLowerCase)
+                .distinct()
+                .sorted()
+                .forEach(System.out::println);
+
+        //문장에서 각 단어를 String[]로 받아 스트림의 요소로 만들어 주기
+        String[] lineArr = { "Believe or not It is true", "Do or not There is no try"};
+
+        Stream<String> lineStream = Arrays.stream(lineArr);
+        lineStream.flatMap(line -> Stream.of(line.split(" +")))
+                .map(String::toLowerCase)
+                .distinct()
+                //.sorted()
+                .forEach(System.out::println);
+
+    }
 }
