@@ -144,6 +144,33 @@ public class StreamMiddleOperate {
 
         //문자를 숫자로바꿔서 문자열 길이가 3이상이면 출력
         Optional.of(1234).map(String::valueOf).filter(x->x.length() > 2).ifPresent(x -> System.out.printf("result => %s",x));
+    }
+
+    @Test
+    public void forEachTest(){
+        //직렬스트림일때는 값이 동일함
+        IntStream.range(1,10).sequential().forEach(System.out::print);
+        System.out.println();
+        IntStream.range(1,10).sequential().forEachOrdered(System.out::print);
+        System.out.println();
+        //병렬일때는 forEachOrdered를 사용해야 순서를 보장해줌
+        IntStream.range(1,11).parallel().forEach(System.out::print);
+        System.out.println();
+        IntStream.range(1,11).parallel().forEachOrdered(System.out::print);
+
+        String[] strArr = {"치킨", "피자", "떡볶이", "순대", "만두", "짬뽕"};
+        Stream.of(strArr).forEach(System.out::println); // 순서를 유지하지않음
+        Stream.of(strArr).forEachOrdered(System.out::println); // 순서를 유지 대신, 성능이 저하될 수 있음
 
     }
+
+    @Test
+    public void matchesMethod(){
+        String[] strArr = {"치킨", "피자", "떡볶이", "순대", "만두", "짬뽕"};
+
+        boolean noEmpty = Stream.of(strArr).noneMatch(s -> s.length() == 2); //조건에 하나도 일치하지 않으면 true
+        Stream.of(strArr).filter(s->s.charAt(0)."치").findFirst(); //여기서부터 다시
+
+    }
+
 }
