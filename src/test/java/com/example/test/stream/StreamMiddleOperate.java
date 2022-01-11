@@ -7,6 +7,7 @@ import javax.el.CompositeELResolver;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -112,6 +113,37 @@ public class StreamMiddleOperate {
                 .distinct()
                 //.sorted()
                 .forEach(System.out::println);
+
+    }
+
+    @Test
+    public void optionalPra(){
+        //Optional<String> opt = null -> 가능은 하지만 바람직하지 않음
+        Optional<String> opt = Optional.empty();
+
+        System.out.println("opt= "+opt);
+        //System.out.println("opt == "+ opt.get()); // 들어있는것이 널이라 예외발생
+
+        opt.orElse("널임");
+        System.out.println("opt는 ? "+opt);
+
+        opt.orElseGet(()->"널이야");
+        System.out.println("람다식 쓴 opt는? "+opt);
+
+    }
+
+    @Test
+    public void streamAndOptional(){
+        Optional<String> optStr = Optional.of("abcde");
+        Optional<Integer> optInt = optStr.map(String::length); // 상기배열을 정수타입의 5로 변경 / 람다: s->s.length();
+
+        int result1 = Optional.of("123").filter(s -> s.length() > 0).map(s -> Integer.parseInt(s)).get();
+        int result2 = Optional.of("").filter(x -> x.length() > 0).map(x -> Integer.parseInt(x)).orElse(-1);
+        System.out.println(result1);
+        System.out.println(result2);
+
+        //문자를 숫자로바꿔서 문자열 길이가 3이상이면 출력
+        Optional.of(1234).map(String::valueOf).filter(x->x.length() > 2).ifPresent(x -> System.out.printf("result => %s",x));
 
     }
 }
