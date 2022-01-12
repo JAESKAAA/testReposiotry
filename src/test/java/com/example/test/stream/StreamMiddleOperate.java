@@ -7,6 +7,7 @@ import javax.el.CompositeELResolver;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -165,11 +166,29 @@ public class StreamMiddleOperate {
     }
 
     @Test
+    public void strPrac(){
+        Stream<String> stringStream = Stream.of("1", "2", "3", "4", "5", "6", "7");
+        //문자 배열을 long배열로
+        Long[] longArr = stringStream.map(Long::parseLong).toArray(Long[]::new);
+
+        //배열을 스트림으로 바꿀땐 Arrays
+        //다시 문자 배열로
+        String[] stringArr = Arrays.stream(longArr).map(String::valueOf).toArray(String[]::new);
+
+        List<String> stringList = Arrays.asList(stringArr);
+        stringList.stream().map(Long::parseLong).distinct().forEach(System.out::println);
+
+
+
+    }
+
+
+    @Test
     public void matchesMethod(){
         String[] strArr = {"치킨", "피자", "떡볶이", "순대", "만두", "짬뽕"};
 
         boolean noEmpty = Stream.of(strArr).noneMatch(s -> s.length() == 2); //조건에 하나도 일치하지 않으면 true
-        Stream.of(strArr).filter(s->s.charAt(0)."치").findFirst(); //여기서부터 다시
+        //Stream.of(strArr).filter(s->s.charAt(0)."치").findFirst(); //여기서부터 다시
 
     }
 
