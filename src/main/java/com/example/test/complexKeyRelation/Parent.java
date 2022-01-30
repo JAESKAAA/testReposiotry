@@ -9,7 +9,7 @@ import javax.persistence.IdClass;
 @IdClass(ParentId.class)
 public class Parent {
     @Id
-    @Column(name = "PAREMT_ID1")
+    @Column(name = "PARENT_ID1")
     private String id1;
 
     @Id

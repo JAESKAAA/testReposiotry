@@ -1,4 +1,4 @@
-package com.example.test.inheritanceMapping;
+package com.example.test.singleTableMapping;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -9,9 +9,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "DTYPE")
-public abstract class Item {
+public abstract class Item3 {
 
     @Id @GeneratedValue
     @Column(name = "ITEM_ID")

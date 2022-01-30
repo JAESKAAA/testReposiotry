@@ -7,7 +7,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 @Entity
 @DiscriminatorValue("M")
 @PrimaryKeyJoinColumn(name = "MOVIE_ID")
-public class Movie extends Item {
+public class Movie3 extends Item3 {
 
     private String director;
     private String actor;
